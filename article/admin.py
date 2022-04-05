@@ -2,7 +2,6 @@ from encodings import search_function
 from re import search
 from unittest.util import _MAX_LENGTH
 from xml.etree.ElementTree import Comment
-from click import command
 from django.contrib import admin
 from .models import Article, Comment
 

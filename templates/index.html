@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h3>Django ile yapılmış blog denemesidir. Hoşgeldiniz.</h3>
+    <p>Bu Django blog denemesi ile python yazılımını öğrenip ilerletmeyi hedefliyorum.</p>
+</div>
+
+<p>
+    {% if request.user.is_authenticated %}
+        Giriş yapılmış, {{request.user.username}}
+    {% else %}
+        Giriş Yapılmamış    
+    {% endif %}
+
+
+</p>
+
+{% endblock body %}

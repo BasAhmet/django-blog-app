@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-8 offset-md-1">
+        <!-- Post content-->
+        <article>
+            <!-- Post header-->
+            <header class="mb-4">
+                <!-- Post title-->
+                <h2 class="fw-bolder mb-1">
+                {{article.title}}
+                </h2>
+                <!--Author-->
+                <div class="text-muted fst-italic mb-2">
+                {{article.author}} | {{article.createDate}}
+                </div>
+            </header>
+            <!-- Preview image figure-->
+            {% if article.articleImage %}
+            <img class="img-fluid rounded" width="300" height="300" src="{{article.articleImage.url}}" alt="" />
+            {% endif %}
+            <!-- Post content-->
+            <section class="mb-5">
+                <p class="fs-5 mb-4">
+                {{article.content|safe}}
+                </p>
+            </section>
+        </article>
+        <!-- Single comment-->
+        {% if comments %}
+        <div class="card my-4">
+        <div><h5>&nbsp;&nbsp;Yorumlar</h5><hr></div>
+        {% for comment in comments %}
+        <div class="media mb-4">
+            <div class="d-flex">&nbsp;
+                <div class="flex-shrink-0"><img class="d-flex mr-3 rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                <div class="media-body">
+                    <h5 class="mt-0">{{comment.comment_author}}</h5>
+                    {{comment.comment_date}}<br>
+                    {{comment.comment_content}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-danger">Bu makalede yorum bulunmamakta.<br>İlk yorumu yazan siz olun.</div>
+        {% endif %}
+        <!-- Comment form-->
+        <div class="card my-4">
+            <h5 class="card-header">Yorum Ekle:</h5>
+            <div class="card-body">
+                <form method = "post" action = "{% url 'article:comment' article.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="formGroupExampleInput">İsim Yazınız</label>
+                    <input name="comment_author" placeholder="İsminizi Yazınız" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Yorum Yazınız</label>
+                    <textarea name="comment_content" class="form-control" rows="3" placeholder="Yorumunuzu buraya yazbilirsiniz..."></textarea>
+                </div>
+                    <button type="submit" class="btn btn-danger">Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+
+
+

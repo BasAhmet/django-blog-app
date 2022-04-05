@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="row"></div>
+    <div class="col-md-10 offset-md-1">
+        <div class="col-lg-10">
+        <h3>Makaleler</h3>
+        <hr>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+{% if articles %}
+{% for article in articles %}
+    <div class="col-md-10 offset-md-2">
+        <div class="col-lg-8">
+        <!-- Post content-->
+        <article>
+            <!-- Post header-->
+            <header class="mb-4">
+                <!-- Post title-->
+                <a href="{% url 'article:detail' article.id %}"><h2 class="fw-bolder mb-1">
+                {{article.title}}
+                </a>
+                </h2>
+                <!--Author-->
+                <div class="text-muted fst-italic mb-2">
+                {{article.author}} | {{article.createDate}}
+                </div>
+            </header>
+            <!-- Preview image figure-->
+            {% if article.articleImage %}
+            <img class="img-fluid rounded" width="100" height="100" src="{{article.articleImage.url}}" alt="" />
+            {% endif %}
+            <!-- Post content-->
+            <section class="mb-5">
+                <p class="fs-5 mb-4">
+                {{article.content|safe|truncatewords:25}}
+                </p>
+                <a style = "float: right;" href="{% url 'article:detail' article.id %}" class="btn btn-danger">Devamını Oku</a>
+                <hr>
+            </section>
+        </article>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% else %}
+<div class="col-md-7 offset-md-2">
+    <div class = "alert alert-danger">
+    Makale Bulunamadı
+    </div>
+</div>
+{% endif %}
+{% endblock body %}
